@@ -1,10 +1,14 @@
+import { Link } from "react-router-dom"
+
 export function Menu() {
   const options = ["Início", "Sobre", "Candidatos", "Projetos", "Contato"]
 
   return (
     <ul className="flex gap-[60px] text-[16px]">
       {options.map((index, item) => (
-        <li key={item} className="cursor-pointer hover:opacity-[80%] transition">{index}</li>
+        <li key={item} className="cursor-pointer hover:opacity-[80%] transition">
+          {index === options[0] ? <Link to={'/'}>{index}</Link> : <Link to={`/${index}`}>{index}</Link>}
+        </li>
       ))}
     </ul>
   )
