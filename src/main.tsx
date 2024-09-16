@@ -11,7 +11,8 @@ import { Contact } from './pages/Contact'
 
 import './index.css'
 import { Admin } from './pages/Admin'
-import { AdminHeader } from './components/AdminHeader'
+import { AdminCandidates } from './pages/AdminCandidates'
+import { AdminRoot } from './components/AdminRoot'
 
 const router = createBrowserRouter([
   {
@@ -42,12 +43,16 @@ const router = createBrowserRouter([
   },
   {
     path: '/admin',
-    element: <AdminHeader />,
+    element: <AdminRoot />,
     children: [
       {
         path: '/admin',
         element: <Admin />
-      }
+      },
+      {
+        path: 'candidatos',
+        element: <AdminCandidates />
+      },
     ]
   }
 ])

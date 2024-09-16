@@ -1,4 +1,6 @@
 import { AdminDashboardCard } from "../components/AdminDashboardCard";
+import { AdminDashboardPresentation } from "../components/AdminDashboardPresentation";
+import { AdminWrapper } from "../components/AdminWrapper";
 
 export function Admin() {
   const cardContent = [
@@ -50,16 +52,7 @@ export function Admin() {
   ]
 
   return (
-    <section className="flex flex-col gap-[100px] w-full h-full rounded-tl-[40px] bg-[#D9D9D9]/20 py-[40px] px-[40px] font-[Montserrat]">
-      <div className="flex flex-col gap-[10px]">
-        <div className="flex flex-col gap-[3px]">
-          <h1 className="font-[Kodchasan] font-medium text-[20px]">Seja Bem Vindo</h1>
-          <p className="italic text-[10px]">ao Painel Administrativo</p>
-        </div>
-        <p className="font-light text-[14px]">
-          Gerencie conteúdo, usuários, e muito mais de forma simples e eficiente. Utilize as ferramentas disponíveis para manter tudo atualizado e otimizado, garantindo a melhor experiência para os seus visitantes.
-        </p>
-      </div>
+    <AdminWrapper>
       <div className="flex flex-wrap gap-[30px]">
         {
           cardContent.map(({ icon, title, subtitle, firstItem, middleItem, lastItem, buttonText }, index) => (
@@ -77,6 +70,6 @@ export function Admin() {
           ))
         }
       </div>
-    </section>
+    </AdminWrapper>
   )
 }

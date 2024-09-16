@@ -29,3 +29,14 @@ declare type BannerMainLogoProps = {
     height?: number | string
   }
 }
+
+declare type Candidate = {
+  firstName: string
+  lastName: string
+  number: string
+  state: string
+  uf: string
+  occupation: string
+  voteIntention: number
+  photo: string
+}
