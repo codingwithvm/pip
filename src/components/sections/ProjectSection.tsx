@@ -1,4 +1,4 @@
-import { CircleSvg } from "./CircleBg";
+import { CircleSvg } from "../assets/CircleBg";
 
 export function ProjectSection() {
   return (

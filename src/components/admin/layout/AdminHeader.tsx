@@ -1,4 +1,4 @@
-import { BannerMainLogo } from "./BannerMainLogo";
+import { BannerMainLogo } from "../../assets/BannerMainLogo";
 
 export function AdminHeader() {
   return (

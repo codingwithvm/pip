@@ -1,8 +1,8 @@
-import { CandidateSection } from "../components/CandidateSection";
-import { ImpactProjectsSection } from "../components/ImpactProjectsSection";
-import { LeadershipSection } from "../components/LeadershipSection";
-import { OverviewSection } from "../components/OverviewSection";
-import { ProjectSection } from "../components/ProjectSection";
+import { CandidateSection } from "../components/candidates/CandidateSection";
+import { ImpactProjectsSection } from "../components/sections/ImpactProjectsSection";
+import { LeadershipSection } from "../components/sections/LeadershipSection";
+import { OverviewSection } from "../components/sections/OverviewSection";
+import { ProjectSection } from "../components/sections/ProjectSection";
 
 export function Home() {
   return (

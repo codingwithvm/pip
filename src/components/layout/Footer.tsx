@@ -1,6 +1,6 @@
-import { Logo } from "./Logo";
+import { Logo } from "../assets/Logo";
 import { FooterMenu } from "./Menu";
-import { SocialBar } from "./SocialBar";
+import { SocialBar } from "../assets/SocialBar";
 
 export function Footer() {
   return (

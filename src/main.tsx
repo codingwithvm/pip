@@ -2,7 +2,7 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { createBrowserRouter, RouterProvider  } from 'react-router-dom'
 
-import { Root } from './components/Root'
+import { Root } from './components/layout/Root'
 import { Home } from './pages/Home'
 import { About } from './pages/About'
 import { Candidates } from './pages/Candidates'
@@ -10,9 +10,9 @@ import { Projects } from './pages/Projects'
 import { Contact } from './pages/Contact'
 
 import './index.css'
-import { Admin } from './pages/Admin'
-import { AdminCandidates } from './pages/AdminCandidates'
-import { AdminRoot } from './components/AdminRoot'
+import { Admin } from './pages/Admin/Admin'
+import { AdminCandidates } from './pages/Admin/AdminCandidates'
+import { AdminRoot } from './components/admin/AdminRoot'
 
 const router = createBrowserRouter([
   {

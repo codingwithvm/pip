@@ -1,6 +1,6 @@
-import { CircleSvg } from "./CircleBg"
-import { InfoCard } from "./InfoCard"
-import { StatsCard } from "./StatsCard"
+import { CircleSvg } from "../assets/CircleBg"
+import { InfoCard } from "../assets/InfoCard"
+import { StatsCard } from "../assets/StatsCard"
 
 export function ImpactProjectsSection() {
   return (

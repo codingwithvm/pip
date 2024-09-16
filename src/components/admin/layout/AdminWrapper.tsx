@@ -1,5 +1,5 @@
 import React from "react";
-import { AdminDashboardPresentation } from "./AdminDashboardPresentation";
+import { AdminDashboardPresentation } from "../dashboard/AdminDashboardPresentation";
 
 export function AdminWrapper({ children }: { children: React.ReactNode }) {
   return (

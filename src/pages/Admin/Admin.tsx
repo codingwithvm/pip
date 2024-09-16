@@ -1,6 +1,5 @@
-import { AdminDashboardCard } from "../components/AdminDashboardCard";
-import { AdminDashboardPresentation } from "../components/AdminDashboardPresentation";
-import { AdminWrapper } from "../components/AdminWrapper";
+import { AdminDashboardCard } from "../../components/admin/dashboard/AdminDashboardCard";
+import { AdminWrapper } from "../../components/admin/layout/AdminWrapper";
 
 export function Admin() {
   const cardContent = [

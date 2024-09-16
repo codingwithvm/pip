@@ -1,5 +1,5 @@
-import { BannerMainLogo } from "./BannerMainLogo";
-import { BannerMainLogoBg } from "./BannerMainLogoBg";
+import { BannerMainLogo } from "../assets/BannerMainLogo";
+import { BannerMainLogoBg } from "../assets/BannerMainLogoBg";
 
 export function OverviewSection() {
   const candidates = [

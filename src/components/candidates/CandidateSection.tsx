@@ -1,5 +1,5 @@
 import { CandidateCard } from "./CandidateCard";
-import { CircleSvg } from "./CircleBg";
+import { CircleSvg } from "../assets/CircleBg";
 
 export function CandidateSection() {
   return (
