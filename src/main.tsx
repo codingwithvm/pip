@@ -10,6 +10,8 @@ import { Projects } from './pages/Projects'
 import { Contact } from './pages/Contact'
 
 import './index.css'
+import { Admin } from './pages/Amin'
+import { AdminHeader } from './components/AdminHeader'
 
 const router = createBrowserRouter([
   {
@@ -38,6 +40,16 @@ const router = createBrowserRouter([
       }
     ]
   },
+  {
+    path: '/admin',
+    element: <AdminHeader />,
+    children: [
+      {
+        path: '/admin',
+        element: <Admin />
+      }
+    ]
+  }
 ])
 
 createRoot(document.getElementById('root')!).render(

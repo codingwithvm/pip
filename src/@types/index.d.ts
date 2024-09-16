@@ -19,6 +19,13 @@ declare type CandidateCardProps = {
 }
 
 declare type CircleBgProps = {
-  position: string, 
+  position: string 
   opacity?: string
+}
+
+declare type BannerMainLogoProps = {
+  size?: {
+    width: number
+    height?: number | string
+  }
 }
