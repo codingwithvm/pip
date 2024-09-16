@@ -1,5 +1,5 @@
-import { Outlet } from "react-router-dom";
 import { BannerMainLogo } from "./BannerMainLogo";
+import { AdminSideMenu } from "./AdminSideMenu";
 
 export function AdminHeader() {
   return (
@@ -13,7 +13,7 @@ export function AdminHeader() {
           </div>
         </div>
       </header>
-      <Outlet />
+      <AdminSideMenu />
     </>
   )
 }
