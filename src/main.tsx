@@ -10,7 +10,7 @@ import { Projects } from './pages/Projects'
 import { Contact } from './pages/Contact'
 
 import './index.css'
-import { Admin } from './pages/Amin'
+import { Admin } from './pages/Admin'
 import { AdminHeader } from './components/AdminHeader'
 
 const router = createBrowserRouter([

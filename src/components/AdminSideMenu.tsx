@@ -3,7 +3,7 @@ import { Outlet } from "react-router-dom";
 export function AdminSideMenu() {
   return (
     <main className="flex">
-      <aside className="flex flex-col w-[250px] h-full p-[40px] font-[Montserrat]">
+      <aside className="flex flex-col w-[300px] h-full p-[40px] font-[Montserrat]">
         <ul className="flex flex-col gap-[40px] text-[18px] font-medium">
           <li className="flex items-center gap-[18px]">
             <img className="w-[20px] h-[20px]" src="dashboard-side-menu-icon.png" alt="Dashboard" />
