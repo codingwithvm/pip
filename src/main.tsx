@@ -1,6 +1,6 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import { createBrowserRouter, RouterProvider  } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 import { Root } from './components/layout/Root'
 import { Home } from './pages/Home'
@@ -15,55 +15,23 @@ import { AdminCandidates } from './pages/Admin/AdminCandidates'
 import { AdminRoot } from './components/admin/AdminRoot'
 import { AdminAddCandidate } from './pages/Admin/AdminAddCandidate'
 
-const router = createBrowserRouter([
-  {
-    path: '/',
-    element: <Root />,
-    children: [
-      {
-        path: '/',
-        element: <Home />
-      },
-      {
-        path: '/sobre',
-        element: <About />
-      },
-      {
-        path: '/candidatos',
-        element: <Candidates />
-      },
-      {
-        path: '/projetos',
-        element: <Projects />
-      },
-      {
-        path: '/contato',
-        element: <Contact />
-      }
-    ]
-  },
-  {
-    path: '/admin',
-    element: <AdminRoot />,
-    children: [
-      {
-        path: '/admin',
-        element: <Admin />
-      },
-      {
-        path: 'candidatos',
-        element: <AdminCandidates />,
-      },
-      {
-        path: 'adicionar-candidato',
-        element: <AdminAddCandidate />
-      }
-    ]
-  }
-])
-
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <Router>
+      <Routes>
+        <Route path="/" element={<Root />}>
+          <Route index element={<Home />} />
+          <Route path="/sobre" element={<About />} />
+          <Route path="/candidatos" element={<Candidates />} />
+          <Route path="/projetos" element={<Projects />} />
+          <Route path="/contato" element={<Contact />} />
+        </Route>
+        <Route path="/admin" element={<AdminRoot />}>
+          <Route index element={<Admin />} />
+          <Route path="candidatos" element={<AdminCandidates />} />
+          <Route path="adicionar-candidato" element={<AdminAddCandidate />} />
+        </Route>
+      </Routes>
+    </Router>
   </StrictMode>,
 )
