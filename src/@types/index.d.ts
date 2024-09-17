@@ -40,3 +40,14 @@ declare type Candidate = {
   voteIntention: number
   photo: string
 }
+
+declare type FormValues = {
+  firstName: string
+  lastName: string
+  candidateNumber: number
+  city: string
+  stateCode: string
+  candidateRole: string
+  proposals: string
+  profileImageUrl: string
+}

@@ -13,6 +13,7 @@ import './index.css'
 import { Admin } from './pages/Admin/Admin'
 import { AdminCandidates } from './pages/Admin/AdminCandidates'
 import { AdminRoot } from './components/admin/AdminRoot'
+import { AdminAddCandidate } from './pages/Admin/AdminAddCandidate'
 
 const router = createBrowserRouter([
   {
@@ -51,8 +52,12 @@ const router = createBrowserRouter([
       },
       {
         path: 'candidatos',
-        element: <AdminCandidates />
+        element: <AdminCandidates />,
       },
+      {
+        path: 'adicionar-candidato',
+        element: <AdminAddCandidate />
+      }
     ]
   }
 ])
