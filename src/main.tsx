@@ -23,17 +23,21 @@ createRoot(document.getElementById('root')!).render(
         <Route path="/" element={<Root />}>
           <Route index element={<Home />} />
           <Route path="/sobre" element={<About />} />
-          <Route 
-            path='/candidatos' 
+          <Route
+            path='/candidatos'
             element={
               <CandidateProvider>
                 <Candidates></Candidates>
-                </CandidateProvider>}
+              </CandidateProvider>}
           />
           <Route path="/projetos" element={<Projects />} />
           <Route path="/contato" element={<Contact />} />
         </Route>
-        <Route path="/admin" element={<AdminRoot />}>
+        <Route
+          path="/admin"
+          element={
+            <CandidateProvider><AdminRoot /></CandidateProvider>
+          }>
           <Route index element={<Admin />} />
           <Route path="candidatos" element={<AdminCandidates />} />
           <Route path="adicionar-candidato" element={<AdminAddCandidate />} />

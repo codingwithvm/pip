@@ -19,9 +19,16 @@ const CandidateProvider = ({ children }: CandidateProviderProps) => {
     console.log(candidates)
   }
 
+  const saveCandidate = async (payload: Candidate) => {
+    await api.post('candidates', payload)
+
+    loadCandidates()
+  }
+
   const value: CandidateContextProps = {
     candidates,
-    loadCandidates
+    loadCandidates,
+    saveCandidate
   }
 
   return (

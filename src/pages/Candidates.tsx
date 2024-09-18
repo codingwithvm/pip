@@ -27,7 +27,7 @@ export function Candidates() {
           <ul className="flex flex-wrap gap-[30px]">
             {groupedByRole[role].map(candidate => (
               <li className="flex w-[344px] h-[121px] shadow-md rounded-[10px]" key={candidate.number}>
-                <img className="w-[118px] h-[121px] bg-sky-200 rounded-[10px]" src="./paola-silva.jpg" alt="paola"></img>
+                <img className="w-[118px] h-[121px] bg-sky-200 rounded-[10px]" src={candidate.photo} alt={candidate.firstName}></img>
                 <div className="px-[20px] py-[15px] flex flex-col justify-between">
                   <div className="text-[18px] mb-[10px]">
                     <p>{candidate.firstName.toUpperCase()}</p>

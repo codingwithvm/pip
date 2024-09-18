@@ -55,6 +55,7 @@ declare type FormValues = {
 declare type CandidateContextProps = {
   candidates: Candidate[]
   loadCandidates: () => Promise<void>
+  saveCandidate: (payload: Candidate) => Promise<void>
 }
 
 declare type CandidateProviderProps = {

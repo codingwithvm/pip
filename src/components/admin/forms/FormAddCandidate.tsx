@@ -2,8 +2,11 @@ import { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useCandidate } from "../../../hooks/CandidateProvider";
 
 export function FormAddCandidate() {
+  const { saveCandidate } = useCandidate()
+
   const schema = yup.object().shape({
     firstName: yup.string().required("Nome é obrigatório"),
     lastName: yup.string().required("Sobrenome é obrigatório"),
@@ -22,6 +25,7 @@ export function FormAddCandidate() {
     handleSubmit,
     formState: { errors },
     setValue,
+    reset,
   } = useForm<FormValues>({
     resolver: yupResolver(schema),
   })
@@ -39,8 +43,21 @@ export function FormAddCandidate() {
     }
   }
 
-  const onSubmit: SubmitHandler<FormValues> = (data) => {
+  const onSubmit: SubmitHandler<FormValues> = async data => {
     console.log("Dados do formulário:", data)
+    const newCandidate: Candidate = {
+      firstName: data.firstName,
+      lastName: data.lastName,
+      number: data.candidateNumber,
+      occupation: data.candidateRole,
+      photo: data.profileImageUrl,
+      state: data.city,
+      uf: data.stateCode,
+      voteIntention: 0,
+    }
+    
+    await saveCandidate(newCandidate)
+    reset()
   }
 
   return (
