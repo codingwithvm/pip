@@ -6,6 +6,8 @@ import { useCandidate } from "../../../hooks/CandidateProvider";
 
 export function FormAddCandidate() {
   const { saveCandidate } = useCandidate()
+  const [filePreview, setFilePreview] = useState<string | null>(null)
+  const [loading, setLoading] = useState(false)
 
   const schema = yup.object().shape({
     firstName: yup.string().required("Nome é obrigatório"),
@@ -17,8 +19,6 @@ export function FormAddCandidate() {
     proposals: yup.string().required("Propostas são obrigatórias"),
     profileImageUrl: yup.string().required("A foto é obrigatória")
   })
-
-  const [filePreview, setFilePreview] = useState<string | null>(null);
 
   const {
     register,
@@ -55,8 +55,11 @@ export function FormAddCandidate() {
       uf: data.stateCode,
       voteIntention: 0,
     }
-    
+
+    setLoading(true)
     await saveCandidate(newCandidate)
+    setFilePreview("")
+    setLoading(false)
     reset()
   }
 
@@ -105,6 +108,7 @@ export function FormAddCandidate() {
           <input
             type="text"
             className="border py-2 px-4 rounded-[10px] w-full"
+            disabled={loading ? true : false}
             {...register("firstName")}
           />
           {errors.firstName && <span className="text-red-500 text-[12px] font-semibold">{errors.firstName.message}</span>}
@@ -115,6 +119,7 @@ export function FormAddCandidate() {
           <input
             type="text"
             className="border py-2 px-4 rounded-[10px] w-full"
+            disabled={loading ? true : false}
             {...register("lastName")}
           />
           {errors.lastName && (
@@ -128,6 +133,7 @@ export function FormAddCandidate() {
             <input
               type="text"
               className="border py-2 px-4 rounded-[10px] w-[140px]"
+              disabled={loading ? true : false}
               {...register("candidateNumber")}
             />
             {errors.candidateNumber && (
@@ -140,6 +146,7 @@ export function FormAddCandidate() {
             <input
               type="text"
               className="border py-2 px-4 rounded-[10px] w-full"
+              disabled={loading ? true : false}
               {...register("city")}
             />
             {errors.city && <span className="text-red-500 text-[12px] font-semibold">{errors.city.message}</span>}
@@ -150,6 +157,7 @@ export function FormAddCandidate() {
             <input
               type="text"
               className="border py-2 px-4 rounded-[10px] w-full"
+              disabled={loading ? true : false}
               {...register("stateCode")}
             />
             {errors.stateCode && <span className="text-red-500 text-[12px] font-semibold">{errors.stateCode.message}</span>}
@@ -161,6 +169,7 @@ export function FormAddCandidate() {
           <input
             type="text"
             className="border py-2 px-4 rounded-[10px] w-full"
+            disabled={loading ? true : false}
             {...register("candidateRole")}
           />
           {errors.candidateRole && <span className="text-red-500 text-[12px] font-semibold">{errors.candidateRole.message}</span>}
@@ -173,6 +182,7 @@ export function FormAddCandidate() {
         <textarea
           className="border py-2 px-4 rounded-[10px] w-full"
           rows={4}
+          disabled={loading ? true : false}
           {...register("proposals")}
         />
         {errors.proposals && (
@@ -188,12 +198,17 @@ export function FormAddCandidate() {
         >
           CANCELAR
         </button>
-        <button
+        {loading ? <button
+          type="submit"
+          className="bg-[#000]/10 cursor-wait text-white py-2 px-4 rounded-[20px] w-[150px]"
+        >
+          SALVANDO
+        </button> : <button
           type="submit"
           className="bg-[#000] text-white py-2 px-4 rounded-[20px] w-[150px]"
         >
           SALVAR
-        </button>
+        </button>}
       </div>
     </form>
   )

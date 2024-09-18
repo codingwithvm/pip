@@ -24,7 +24,7 @@ export function AdminSideMenu() {
             <li className="mt-[10px]">
               <div className="flex items-center gap-2">
                 <div className="w-[3px] h-[3px] bg-black rounded-full"></div>
-                <h1 className="text-[12px]">Adicionar Novo</h1>
+                <h1 className="text-[12px]"><Link to={'/admin/adicionar-candidato'}>Adicionar Novo</Link></h1>
               </div>
               <p className="font-light text-[10px] pl-[10px]">Insira novos candidatos no banco de dados</p>
             </li>
