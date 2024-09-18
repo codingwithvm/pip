@@ -1,3 +1,7 @@
+const TextCell = ({ text, fontWeight }: { text: string, fontWeight: 'light' | 'medium' }) => (
+  <td className={`text-[14px] font-${fontWeight}`}>{text.toUpperCase()}</td>
+)
+
 export function AdminCandidateRow({ candidate }: { candidate: Candidate }) {
   return (
     <tr className="py-[20px]">
@@ -6,14 +10,14 @@ export function AdminCandidateRow({ candidate }: { candidate: Candidate }) {
       </td>
       <td>
         <div className="flex flex-col items-center text-[14px]">
-          <span className="font-light">{candidate.firstName}</span>
-          <span className="font-medium">{candidate.lastName}</span>
+          <TextCell text={candidate.firstName} fontWeight="light"/>
+          <TextCell text={candidate.lastName} fontWeight="medium"/>
         </div>
       </td>
-      <td className="text-[14px] font-medium">{candidate.number}</td>
-      <td className="text-[14px] font-light">{candidate.state}</td>
-      <td className="text-[14px] font-light">{candidate.uf}</td>
-      <td className="text-[14px] font-medium">{candidate.occupation}</td>
+      <TextCell text={candidate.number} fontWeight="medium"/>
+      <TextCell text={candidate.state} fontWeight="light"/>
+      <TextCell text={candidate.uf} fontWeight="light"/>
+      <TextCell text={candidate.occupation} fontWeight="medium"/>
       <td className="w-[200px]">
         <div className="w-full flex flex-col justify-center items-center">
           <span className="w-[100px] text-[14px] font-light">{candidate.voteIntention}%</span>
