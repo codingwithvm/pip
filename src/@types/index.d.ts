@@ -44,7 +44,7 @@ declare type Candidate = {
 declare type FormValues = {
   firstName: string
   lastName: string
-  candidateNumber: number
+  candidateNumber: string
   city: string
   stateCode: string
   candidateRole: string

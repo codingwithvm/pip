@@ -7,7 +7,7 @@ export function FormAddCandidate() {
   const schema = yup.object().shape({
     firstName: yup.string().required("Nome é obrigatório"),
     lastName: yup.string().required("Sobrenome é obrigatório"),
-    candidateNumber: yup.number().required("Número da candidatura é obrigatório"),
+    candidateNumber: yup.string().required("Número da candidatura é obrigatório"),
     city: yup.string().required("Estado é obrigatório"),
     stateCode: yup.string().required("UF é obrigatório"),
     candidateRole: yup.string().required("Ocupação é obrigatória"),
@@ -109,7 +109,7 @@ export function FormAddCandidate() {
           <div>
             <label className="block text-gray-700  text-[12px] pb-[10px]">Nº DA CANDIDATURA</label>
             <input
-              type="number"
+              type="text"
               className="border py-2 px-4 rounded-[10px] w-[140px]"
               {...register("candidateNumber")}
             />
