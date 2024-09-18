@@ -1,18 +1,8 @@
+import { useCandidate } from "../../../hooks/CandidateProvider";
 import { AdminCandidateRow } from "./AdminCandidateRow";
 
 export function AdminDashboardCandidates() {
-  const candidates: Candidate[] = [
-    {
-      firstName: "Alice",
-      lastName: "Garcia",
-      number: "40334",
-      state: "São Paulo",
-      uf: "SP",
-      occupation: "PREFEITO",
-      voteIntention: 45,
-      photo: "../paola-silva.jpg"
-    }
-  ]
+  const { candidates } = useCandidate()
 
   return (
     <div className="border bg-white rounded-tl-[30px] rounded-tr-[30px]">
