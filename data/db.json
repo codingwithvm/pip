@@ -1,0 +1,22 @@
+{
+  "candidates": [
+    {
+      "firstName": "Lucas",
+      "lastName": "Almeida",
+      "number": "45123",
+      "profileImageUrl": "",
+      "occupation": "PREFEITO",
+      "state": "Fortaleza",
+      "uf": "CE"
+    },
+    {
+      "firstName": "Lucas",
+      "lastName": "Almeida",
+      "number": "45122",
+      "profileImageUrl": "",
+      "occupation": "GOVERNADOR",
+      "state": "Fortaleza",
+      "uf": "CE"
+    }
+  ]
+}

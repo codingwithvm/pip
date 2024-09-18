@@ -51,3 +51,12 @@ declare type FormValues = {
   proposals: string
   profileImageUrl: string
 }
+
+declare type CandidateContextProps = {
+  candidates: Candidate[]
+  loadCandidates: () => Promise<void>
+}
+
+declare type CandidateProviderProps = {
+  children: ReactNode
+}

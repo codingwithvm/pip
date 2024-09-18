@@ -14,6 +14,7 @@ import { Admin } from './pages/Admin/Admin'
 import { AdminCandidates } from './pages/Admin/AdminCandidates'
 import { AdminRoot } from './components/admin/AdminRoot'
 import { AdminAddCandidate } from './pages/Admin/AdminAddCandidate'
+import { CandidateProvider } from './hooks/CandidateProvider';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
@@ -22,7 +23,13 @@ createRoot(document.getElementById('root')!).render(
         <Route path="/" element={<Root />}>
           <Route index element={<Home />} />
           <Route path="/sobre" element={<About />} />
-          <Route path="/candidatos" element={<Candidates />} />
+          <Route 
+            path='/candidatos' 
+            element={
+              <CandidateProvider>
+                <Candidates></Candidates>
+                </CandidateProvider>}
+          />
           <Route path="/projetos" element={<Projects />} />
           <Route path="/contato" element={<Contact />} />
         </Route>
