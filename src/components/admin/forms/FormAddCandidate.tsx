@@ -3,11 +3,23 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useCandidate } from "../../../hooks/CandidateProvider";
+import { Toast } from "flowbite-react";
+import { Link } from "react-router-dom";
 
 export function FormAddCandidate() {
   const { saveCandidate } = useCandidate()
+  const [lastCandidate, setLastCandidate] = useState<Candidate>({
+    firstName: "",
+    lastName: "",
+    number: "",
+    photo: "",
+    occupation: "",
+    state: "",
+    uf: "",
+  })
   const [filePreview, setFilePreview] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
+  const [showToast, setShowToast] = useState(false)
 
   const schema = yup.object().shape({
     firstName: yup.string().required("Nome é obrigatório"),
@@ -44,7 +56,6 @@ export function FormAddCandidate() {
   }
 
   const onSubmit: SubmitHandler<FormValues> = async data => {
-    console.log("Dados do formulário:", data)
     const newCandidate: Candidate = {
       firstName: data.firstName,
       lastName: data.lastName,
@@ -58,158 +69,190 @@ export function FormAddCandidate() {
 
     setLoading(true)
     await saveCandidate(newCandidate)
+    setLastCandidate(newCandidate)
+    setShowToast(true)
     setFilePreview("")
     setLoading(false)
     reset()
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 font-[Montserrat]">
-      {/* Foto e upload */}
-      <div className="flex items-center gap-[10px]">
-        <div className="rounded-full border w-[80px] h-[80px] overflow-hidden">
-          {filePreview ? (
-            <img
-              src={filePreview}
-              alt="Foto carregada"
-              className="w-full h-full object-cover"
-            />
-          ) : (
-            <div className="w-full h-full bg-gray-200"></div>
-          )}
-        </div>
+    <>
+      {/* Toast de Sucesso */}
+      {showToast && (
+        <Toast>
+          <div className="flex items-center">
+            <div className="rounded-full border w-[80px] h-[80px] overflow-hidden">
+              <img
+                src={lastCandidate.photo}
+                alt="Foto carregada"
+                className="w-full h-full object-cover"
+              />
+            </div>
+            <div className="ml-[30px]">
+              <h1 className="text-[10px]">Salvo com sucesso!</h1>
+              <p>{lastCandidate.firstName.toUpperCase()}</p>
+              <p className="font-bold">{lastCandidate.lastName.toUpperCase()}</p>
+              <p className="font-bold text-blue-500">{lastCandidate.number.toUpperCase()}</p>
+            </div>
+          </div>
+          <div className="ml-auto flex items-center space-x-2">
+            <Link className="text-blue-500" to={'/admin/candidatos'}>
+              VER DETALHES
+            </Link>
+            <Toast.Toggle />
+          </div>
+        </Toast >
+      )
+      }
 
-        <input
-          type="file"
-          id="file"
-          className="hidden"
-          accept="image/*"
-          onChange={handleFileChange}
-        />
-
-        <label
-          htmlFor="file"
-          className="cursor-pointer bg-white border hover:bg-[#E1E1E1]/20 py-2 px-4 rounded-[20px]"
-        >
-          Carregar Foto
-        </label>
-
-        <input
-          type="hidden"
-          {...register("profileImageUrl")} // Campo invisível para base64
-        />
-        {errors.profileImageUrl && <p className="text-red-500 text-[12px] font-semibold">{errors.profileImageUrl.message}</p>}
-      </div>
-
-      {/* Campos do formulário */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <div>
-          <label className="block text-gray-700  text-[12px] pb-[10px]">NOME</label>
-          <input
-            type="text"
-            className="border py-2 px-4 rounded-[10px] w-full"
-            disabled={loading ? true : false}
-            {...register("firstName")}
-          />
-          {errors.firstName && <span className="text-red-500 text-[12px] font-semibold">{errors.firstName.message}</span>}
-        </div>
-
-        <div>
-          <label className="block text-gray-700  text-[12px] pb-[10px]">SOBRENOME</label>
-          <input
-            type="text"
-            className="border py-2 px-4 rounded-[10px] w-full"
-            disabled={loading ? true : false}
-            {...register("lastName")}
-          />
-          {errors.lastName && (
-            <span className="text-red-500 text-[12px] font-semibold">{errors.lastName.message}</span>
-          )}
-        </div>
-
-        <div className="flex gap-[10px] w-full">
-          <div>
-            <label className="block text-gray-700  text-[12px] pb-[10px]">Nº DA CANDIDATURA</label>
-            <input
-              type="text"
-              className="border py-2 px-4 rounded-[10px] w-[140px]"
-              disabled={loading ? true : false}
-              {...register("candidateNumber")}
-            />
-            {errors.candidateNumber && (
-              <span className="text-red-500 text-[12px] font-semibold">{errors.candidateNumber.message}</span>
+      <form onSubmit={handleSubmit(onSubmit)} className="mt-6 space-y-4 font-[Montserrat]">
+        {/* Foto e upload */}
+        <div className="flex items-center gap-[10px]">
+          <div className="rounded-full border w-[80px] h-[80px] overflow-hidden">
+            {filePreview ? (
+              <img
+                src={filePreview}
+                alt="Foto carregada"
+                className="w-full h-full object-cover"
+              />
+            ) : (
+              <div className="w-full h-full bg-gray-200"></div>
             )}
           </div>
 
-          <div>
-            <label className="block text-gray-700  text-[12px] pb-[10px]">ESTADO</label>
-            <input
-              type="text"
-              className="border py-2 px-4 rounded-[10px] w-full"
-              disabled={loading ? true : false}
-              {...register("city")}
-            />
-            {errors.city && <span className="text-red-500 text-[12px] font-semibold">{errors.city.message}</span>}
-          </div>
-
-          <div>
-            <label className="block text-gray-700  text-[12px] pb-[10px]">UF</label>
-            <input
-              type="text"
-              className="border py-2 px-4 rounded-[10px] w-full"
-              disabled={loading ? true : false}
-              {...register("stateCode")}
-            />
-            {errors.stateCode && <span className="text-red-500 text-[12px] font-semibold">{errors.stateCode.message}</span>}
-          </div>
-
-        </div>
-        <div>
-          <label className="block text-gray-700  text-[12px] pb-[10px]">OCUPAÇÃO</label>
           <input
-            type="text"
-            className="border py-2 px-4 rounded-[10px] w-full"
-            disabled={loading ? true : false}
-            {...register("candidateRole")}
+            type="file"
+            id="file"
+            className="hidden"
+            accept="image/*"
+            onChange={handleFileChange}
           />
-          {errors.candidateRole && <span className="text-red-500 text-[12px] font-semibold">{errors.candidateRole.message}</span>}
+
+          <label
+            htmlFor="file"
+            className="cursor-pointer bg-white border hover:bg-[#E1E1E1]/20 py-2 px-4 rounded-[20px]"
+          >
+            Carregar Foto
+          </label>
+
+          <input
+            type="hidden"
+            {...register("profileImageUrl")} // Campo invisível para base64
+          />
+          {errors.profileImageUrl && <p className="text-red-500 text-[12px] font-semibold">{errors.profileImageUrl.message}</p>}
         </div>
 
-      </div>
+        {/* Campos do formulário */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label className="block text-gray-700  text-[12px] pb-[10px]">NOME</label>
+            <input
+              type="text"
+              className="border py-2 px-4 rounded-[10px] w-full"
+              disabled={loading ? true : false}
+              {...register("firstName")}
+            />
+            {errors.firstName && <span className="text-red-500 text-[12px] font-semibold">{errors.firstName.message}</span>}
+          </div>
 
-      <div>
-        <label className="block text-gray-700  text-[12px] pb-[10px]">PROPOSTAS</label>
-        <textarea
-          className="border py-2 px-4 rounded-[10px] w-full"
-          rows={4}
-          disabled={loading ? true : false}
-          {...register("proposals")}
-        />
-        {errors.proposals && (
-          <span className="text-red-500 text-[12px] font-semibold">{errors.proposals.message}</span>
-        )}
-      </div>
+          <div>
+            <label className="block text-gray-700  text-[12px] pb-[10px]">SOBRENOME</label>
+            <input
+              type="text"
+              className="border py-2 px-4 rounded-[10px] w-full"
+              disabled={loading ? true : false}
+              {...register("lastName")}
+            />
+            {errors.lastName && (
+              <span className="text-red-500 text-[12px] font-semibold">{errors.lastName.message}</span>
+            )}
+          </div>
 
-      {/* Botões */}
-      <div className="flex justify-end gap-4 mt-4">
-        <button
-          type="button"
-          className="bg-white py-2 px-4 border rounded-[20px] w-[150px]"
-        >
-          CANCELAR
-        </button>
-        {loading ? <button
-          type="submit"
-          className="bg-[#000]/10 cursor-wait text-white py-2 px-4 rounded-[20px] w-[150px]"
-        >
-          SALVANDO
-        </button> : <button
-          type="submit"
-          className="bg-[#000] text-white py-2 px-4 rounded-[20px] w-[150px]"
-        >
-          SALVAR
-        </button>}
-      </div>
-    </form>
+          <div className="flex gap-[10px] w-full">
+            <div>
+              <label className="block text-gray-700  text-[12px] pb-[10px]">Nº DA CANDIDATURA</label>
+              <input
+                type="text"
+                className="border py-2 px-4 rounded-[10px] w-[140px]"
+                disabled={loading ? true : false}
+                {...register("candidateNumber")}
+              />
+              {errors.candidateNumber && (
+                <span className="text-red-500 text-[12px] font-semibold">{errors.candidateNumber.message}</span>
+              )}
+            </div>
+
+            <div>
+              <label className="block text-gray-700  text-[12px] pb-[10px]">ESTADO</label>
+              <input
+                type="text"
+                className="border py-2 px-4 rounded-[10px] w-full"
+                disabled={loading ? true : false}
+                {...register("city")}
+              />
+              {errors.city && <span className="text-red-500 text-[12px] font-semibold">{errors.city.message}</span>}
+            </div>
+
+            <div>
+              <label className="block text-gray-700  text-[12px] pb-[10px]">UF</label>
+              <input
+                type="text"
+                className="border py-2 px-4 rounded-[10px] w-full"
+                disabled={loading ? true : false}
+                {...register("stateCode")}
+              />
+              {errors.stateCode && <span className="text-red-500 text-[12px] font-semibold">{errors.stateCode.message}</span>}
+            </div>
+
+          </div>
+          <div>
+            <label className="block text-gray-700  text-[12px] pb-[10px]">OCUPAÇÃO</label>
+            <input
+              type="text"
+              className="border py-2 px-4 rounded-[10px] w-full"
+              disabled={loading ? true : false}
+              {...register("candidateRole")}
+            />
+            {errors.candidateRole && <span className="text-red-500 text-[12px] font-semibold">{errors.candidateRole.message}</span>}
+          </div>
+
+        </div>
+
+        <div>
+          <label className="block text-gray-700  text-[12px] pb-[10px]">PROPOSTAS</label>
+          <textarea
+            className="border py-2 px-4 rounded-[10px] w-full"
+            rows={4}
+            disabled={loading ? true : false}
+            {...register("proposals")}
+          />
+          {errors.proposals && (
+            <span className="text-red-500 text-[12px] font-semibold">{errors.proposals.message}</span>
+          )}
+        </div>
+
+        {/* Botões */}
+        <div className="flex justify-end gap-4 mt-4">
+          <button
+            type="button"
+            className="bg-white py-2 px-4 border rounded-[20px] w-[150px]"
+          >
+            CANCELAR
+          </button>
+          {loading ? <button
+            type="submit"
+            className="bg-[#000]/10 cursor-wait text-white py-2 px-4 rounded-[20px] w-[150px]"
+          >
+            SALVANDO
+          </button> : <button
+            type="submit"
+            className="bg-[#000] text-white py-2 px-4 rounded-[20px] w-[150px]"
+          >
+            SALVAR
+          </button>}
+        </div>
+      </form>
+    </>
   )
 }

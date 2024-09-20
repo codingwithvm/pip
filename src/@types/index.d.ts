@@ -31,13 +31,14 @@ declare type BannerMainLogoProps = {
 }
 
 declare type Candidate = {
+  id?: string
   firstName: string
   lastName: string
   number: string
   state: string
   uf: string
   occupation: string
-  voteIntention: number
+  voteIntention?: number
   photo: string
 }
 
@@ -54,8 +55,10 @@ declare type FormValues = {
 
 declare type CandidateContextProps = {
   candidates: Candidate[]
+  lastCandidate: Candidate
   loadCandidates: () => Promise<void>
   saveCandidate: (payload: Candidate) => Promise<void>
+  updateCandidate: (id: string, candidate: Candidate) => Promise<void>
 }
 
 declare type CandidateProviderProps = {

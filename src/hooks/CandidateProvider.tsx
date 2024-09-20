@@ -5,30 +5,50 @@ const CandidateContext = createContext({} as CandidateContextProps)
 
 const CandidateProvider = ({ children }: CandidateProviderProps) => {
   const [candidates, setCandidates] = useState([])
+  const [lastCandidate, setLastCandidate] = useState<Candidate>({
+    firstName: "",
+    lastName: "",
+    number: "",
+    photo: "",
+    occupation: "",
+    state: "",
+    uf: "",
+  })
 
   useEffect(() => {
-    console.log("carregando candidatos")
     loadCandidates()
   }, [])
 
   const loadCandidates = async () => {
     const response = await api.get('candidates')
     const candidatesApi = response.data
+    setLastCandidate(candidatesApi[candidatesApi.length - 1])
 
     setCandidates(candidatesApi)
-    console.log(candidates)
   }
 
   const saveCandidate = async (payload: Candidate) => {
     await api.post('candidates', payload)
-
     loadCandidates()
+  }
+
+  const updateCandidate = async (id: string, candidate: Candidate) => {
+    try {
+      // Endpoint para atualizar o candidato específico
+      const response = await api.put(`candidates/${id}`, candidate)
+
+      console.log("Candidato atualizado com sucesso:", response.data)
+    } catch (error) {
+      console.error("Erro ao atualizar o candidato:", error)
+    }
   }
 
   const value: CandidateContextProps = {
     candidates,
+    lastCandidate,
     loadCandidates,
-    saveCandidate
+    saveCandidate,
+    updateCandidate
   }
 
   return (
