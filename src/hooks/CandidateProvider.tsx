@@ -12,6 +12,7 @@ const CandidateProvider = ({ children }: CandidateProviderProps) => {
     photo: "",
     occupation: "",
     state: "",
+    proposals: "",
     uf: "",
   })
 
@@ -37,9 +38,20 @@ const CandidateProvider = ({ children }: CandidateProviderProps) => {
       // Endpoint para atualizar o candidato específico
       const response = await api.put(`candidates/${id}`, candidate)
 
-      console.log("Candidato atualizado com sucesso:", response.data)
+      console.log("Candidate updated successfully:", response.data)
     } catch (error) {
-      console.error("Erro ao atualizar o candidato:", error)
+      console.error("Error updating the candidate:", error)
+    }
+  }
+
+  const deleteCandidate = async (id: string) => {
+    try {
+      // Endpoint para atualizar o candidato específico
+      const response = await api.delete(`candidates/${id}`)
+
+      console.log("Candidate deleted successfully:", response.data)
+    } catch (error) {
+      console.error("Error deleting the candidate:", error)
     }
   }
 
@@ -48,6 +60,7 @@ const CandidateProvider = ({ children }: CandidateProviderProps) => {
     lastCandidate,
     loadCandidates,
     saveCandidate,
+    deleteCandidate,
     updateCandidate
   }
 

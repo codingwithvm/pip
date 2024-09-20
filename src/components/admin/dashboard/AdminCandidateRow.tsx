@@ -52,7 +52,7 @@ export function AdminCandidateRow({ candidate }: { candidate: Candidate }) {
                   city={candidate.state}
                   stateCode={candidate.uf}
                   candidateRole={candidate.occupation}
-                  proposals={""}
+                  proposals={candidate.proposals}
                   profileImageUrl={candidate.photo}
                   onClose={() => setIsOpen(false)} 
                 />

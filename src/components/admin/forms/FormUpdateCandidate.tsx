@@ -1,21 +1,21 @@
-import { useEffect, useState } from "react";
-import { useForm, SubmitHandler } from "react-hook-form";
-import * as yup from "yup";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { useCandidate } from "../../../hooks/CandidateProvider";
+import { useEffect, useState } from "react"
+import { useForm, SubmitHandler } from "react-hook-form"
+import * as yup from "yup"
+import { yupResolver } from "@hookform/resolvers/yup"
+import { useCandidate } from "../../../hooks/CandidateProvider"
 
 type FormUpdateCandidateProps = {
-  candidateId: string;
-  firstName: string;
-  lastName: string;
-  candidateNumber: string;
-  city: string;
-  stateCode: string;
-  candidateRole: string;
-  proposals: string;
-  profileImageUrl: string;
-  onClose: () => void;
-};
+  candidateId: string
+  firstName: string
+  lastName: string
+  candidateNumber: string
+  city: string
+  stateCode: string
+  candidateRole: string
+  proposals: string
+  profileImageUrl: string
+  onClose: () => void
+}
 
 export function FormUpdateCandidate({
   candidateId,
@@ -29,12 +29,13 @@ export function FormUpdateCandidate({
   profileImageUrl,
   onClose,
 }: FormUpdateCandidateProps) {
-  const { updateCandidate, loadCandidates } = useCandidate();
-  const [filePreview, setFilePreview] = useState<string>("");
-  const [loading, setLoading] = useState(false);
+  const { updateCandidate, loadCandidates, deleteCandidate } = useCandidate()
+  const [filePreview, setFilePreview] = useState<string>("")
+  const [loading, setLoading] = useState(false)
+  const [loadingDelete, setLoadingDelete] = useState(false)
 
   useEffect(() => {
-    setFilePreview(profileImageUrl);
+    setFilePreview(profileImageUrl)
     reset({
       firstName,
       lastName,
@@ -44,8 +45,9 @@ export function FormUpdateCandidate({
       candidateRole,
       proposals,
       profileImageUrl,
-    });
-  }, [profileImageUrl, firstName, lastName, candidateNumber, city, stateCode, candidateRole, proposals]);
+    })
+    console.log(proposals);
+  }, [profileImageUrl, firstName, lastName, candidateNumber, city, stateCode, candidateRole, proposals])
 
   const schema = yup.object().shape({
     firstName: yup.string().required("Nome é obrigatório"),
@@ -56,7 +58,7 @@ export function FormUpdateCandidate({
     candidateRole: yup.string().required("Ocupação é obrigatória"),
     proposals: yup.string().required("Propostas são obrigatórias"),
     profileImageUrl: yup.string().required("A foto é obrigatória"),
-  });
+  })
 
   const {
     register,
@@ -66,20 +68,20 @@ export function FormUpdateCandidate({
     reset,
   } = useForm<FormValues>({
     resolver: yupResolver(schema),
-  });
+  })
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
+    const file = event.target.files?.[0]
     if (file) {
-      const reader = new FileReader();
+      const reader = new FileReader()
       reader.onloadend = () => {
-        const base64String = reader.result as string;
-        setValue("profileImageUrl", base64String); // Usa o setValue do react-hook-form para armazenar o Base64
-        setFilePreview(base64String); // Atualiza a visualização da imagem
-      };
-      reader.readAsDataURL(file); // Converte o arquivo para Base64
+        const base64String = reader.result as string
+        setValue("profileImageUrl", base64String) // Usa o setValue do react-hook-form para armazenar o Base64
+        setFilePreview(base64String) // Atualiza a visualização da imagem
+      }
+      reader.readAsDataURL(file) // Converte o arquivo para Base64
     }
-  };
+  }
 
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
     const newCandidate: Candidate = {
@@ -90,17 +92,25 @@ export function FormUpdateCandidate({
       photo: data.profileImageUrl,
       state: data.city,
       uf: data.stateCode,
+      proposals: data.proposals,
       voteIntention: 0,
-    };
+    }
 
-    setLoading(true);
-    await updateCandidate(candidateId, newCandidate);
-    setFilePreview("");
-    setLoading(false);
-    reset();
-    onClose();
+    setLoading(true)
+    await updateCandidate(candidateId, newCandidate)
+    setFilePreview("")
+    setLoading(false)
+    reset()
+    onClose()
     loadCandidates()
-  };
+  }
+
+  const onDelete = async () => {
+    setLoadingDelete(true)
+    await deleteCandidate(candidateId)
+    await loadCandidates()
+    onClose()
+  }
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 font-[Montserrat]">
@@ -214,18 +224,35 @@ export function FormUpdateCandidate({
 
       {/* Botões */}
       <div className="flex justify-end gap-4 mt-4">
+        {loadingDelete ? <button
+          type="submit"
+          className="bg-white cursor-wait text-red-300 py-2 px-4 border rounded-[20px] w-[150px]"
+        >
+          DELETANDO
+        </button> : <button
+          type="submit"
+          className="bg-white text-red-500 py-2 px-4 border rounded-[20px] w-[150px]"
+          onClick={onDelete}
+        >
+          DELETAR
+        </button>}
+
         <button type="button" className="bg-white py-2 px-4 border rounded-[20px] w-[150px]" onClick={onClose}>
           Cancelar
         </button>
 
-        <button
+        {loading ? <button
+          type="submit"
+          className="bg-[#000]/10 cursor-wait text-white py-2 px-4 rounded-[20px] w-[150px]"
+        >
+          SALVANDO
+        </button> : <button
           type="submit"
           className="bg-[#000] text-white py-2 px-4 rounded-[20px] w-[150px]"
-          disabled={loading}
         >
-          {loading ? "Salvando..." : "Salvar"}
-        </button>
+          SALVAR
+        </button>}
       </div>
     </form>
-  );
+  )
 }

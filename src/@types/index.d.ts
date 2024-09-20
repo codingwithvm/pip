@@ -39,6 +39,7 @@ declare type Candidate = {
   uf: string
   occupation: string
   voteIntention?: number
+  proposals: string
   photo: string
 }
 
@@ -58,6 +59,7 @@ declare type CandidateContextProps = {
   lastCandidate: Candidate
   loadCandidates: () => Promise<void>
   saveCandidate: (payload: Candidate) => Promise<void>
+  deleteCandidate: (id: string) => Promise<void>
   updateCandidate: (id: string, candidate: Candidate) => Promise<void>
 }
 
