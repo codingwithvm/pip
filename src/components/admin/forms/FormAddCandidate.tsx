@@ -16,7 +16,8 @@ export function FormAddCandidate() {
     occupation: "",
     state: "",
     uf: "",
-    proposals: ""
+    proposals: "",
+    addedAt: new Date("")
   })
   const [filePreview, setFilePreview] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
@@ -67,6 +68,7 @@ export function FormAddCandidate() {
       uf: data.stateCode,
       proposals: data.proposals,
       voteIntention: 0,
+      addedAt: new Date()
     }
 
     setLoading(true)

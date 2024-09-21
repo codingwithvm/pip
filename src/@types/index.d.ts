@@ -41,6 +41,7 @@ declare type Candidate = {
   voteIntention?: number
   proposals: string
   photo: string
+  addedAt: Date
 }
 
 declare type FormValues = {

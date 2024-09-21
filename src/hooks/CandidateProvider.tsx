@@ -14,6 +14,7 @@ const CandidateProvider = ({ children }: CandidateProviderProps) => {
     state: "",
     proposals: "",
     uf: "",
+    addedAt: new Date("")
   })
 
   useEffect(() => {

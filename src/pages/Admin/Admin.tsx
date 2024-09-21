@@ -1,33 +1,39 @@
 import { AdminDashboardCard } from "../../components/admin/dashboard/AdminDashboardCard";
 import { AdminWrapper } from "../../components/admin/layout/AdminWrapper";
+import { useCandidate } from "../../hooks/CandidateProvider";
+import { calculateIncreasePercentage } from "../../utils/calculateIncreasePercentage";
+import { calculateOccupationPercentages } from "../../utils/calculateOccupationPercentages";
+import { countCandidatesAddedThisMonth } from "../../utils/countCandidatesAddedThisMonth";
+import { countCandidatesByOccupation } from "../../utils/countCandidatesByOccupation";
+import { formatDateToDayMonth } from "../../utils/formatDateToDayMonth";
 
 export function Admin() {
+  const { candidates, lastCandidate } = useCandidate()
+
   const cardContent = [
     {
       icon: "card-user-icon.png",
       title: "Candidatos",
       subtitle: "Registrado",
-      firstItem: "60",
+      firstItem: candidates.length,
       middleItem: "Candidatos Registrados",
-      lastItem: "45% de aumento",
+      lastItem: `${calculateIncreasePercentage(candidates)}% de aumento`,
       buttonText: "VER CANDIDATOS"
     },
     {
       icon: "card-graphic-icon.png",
       title: "Candidatos por",
       subtitle: "Categoria",
-      firstItem: "20 Deputados",
-      middleItem: "25 Senadores...",
-      lastItem: "35% de crescimento nas candidaturas",
+      firstItem: countCandidatesByOccupation(candidates),
+      lastItem: calculateOccupationPercentages(candidates),
       buttonText: "VER POR CATEGORIA"
     },
     {
       icon: "card-clock-icon.png",
       title: "últimos",
       subtitle: "Candidatos",
-      firstItem: "5",
-      middleItem: "Novos Candidatos esse mês",
-      lastItem: "João Silva - 12 de Setembro",
+      firstItem: `${countCandidatesAddedThisMonth(candidates)} Novos Candidatos esse mês`,
+      lastItem: `${lastCandidate.firstName.toLowerCase()} - ${formatDateToDayMonth(lastCandidate.addedAt)}`,
       buttonText: "VER DETALHES"
     },
     {
