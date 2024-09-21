@@ -94,6 +94,8 @@ export function FormUpdateCandidate({
       uf: data.stateCode,
       proposals: data.proposals,
       voteIntention: 0,
+      addedAt: new Date(""),
+      views: 0
     }
 
     setLoading(true)
