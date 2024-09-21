@@ -1,4 +1,4 @@
-export function AdminDashboardCard({ icon, title, subtitle, firstItem, middleItem, lastItem, buttonText }: { icon: string, title: string, subtitle: string, firstItem: string | number, middleItem?: string | number, lastItem: string | number, buttonText: string }) {
+export function AdminDashboardCard({ icon, title, subtitle, firstItem, middleItem, lastItem, buttonText }: { icon: string, title: string, subtitle: string, firstItem: any, middleItem?: any, lastItem: any, buttonText: string }) {
   return (
     <div className="flex flex-col w-[220px] h-[300px] justify-between bg-white rounded-[40px] px-[31px] pb-[20px]">
       <img className="w-[60px] mt-[-30px]" src={icon} alt="User Icon" />

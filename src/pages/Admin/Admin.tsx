@@ -6,9 +6,11 @@ import { calculateOccupationPercentages } from "../../utils/calculateOccupationP
 import { countCandidatesAddedThisMonth } from "../../utils/countCandidatesAddedThisMonth";
 import { countCandidatesByOccupation } from "../../utils/countCandidatesByOccupation";
 import { formatDateToDayMonth } from "../../utils/formatDateToDayMonth";
+import { calculateViewPercentage, getCandidateWithMostViews } from "../../utils/getCandidateWithMostViews";
 
 export function Admin() {
   const { candidates, lastCandidate } = useCandidate()
+
 
   const cardContent = [
     {
@@ -40,9 +42,9 @@ export function Admin() {
       icon: "card-people-icon.png",
       title: "Candidatos",
       subtitle: "Populares",
-      firstItem: "Maria Souza - ",
-      middleItem: "1200 Visualizações",
-      lastItem: "30% de Aumento",
+      firstItem: `${getCandidateWithMostViews(candidates)?.firstName} ${getCandidateWithMostViews(candidates)?.lastName} - `,
+      middleItem: `${getCandidateWithMostViews(candidates)?.views} Visualizações`,
+      lastItem: `${calculateViewPercentage(getCandidateWithMostViews(candidates), candidates)} em relação aos demais candidatos`,
       buttonText: "VER DETALHES"
     },
     {
