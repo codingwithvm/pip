@@ -1,6 +1,8 @@
 # PIP
 
-![Logo do PIP](./public/main-logo.png)
+<div align="center">
+  <img src="./public/main-logo.png" alt="Logo" width="100" />
+</div>
 
 ## Projeto para fins educativos
 O partido PIP é um partido fictício, visando fins educacionais.
