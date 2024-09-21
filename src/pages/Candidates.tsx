@@ -1,7 +1,10 @@
+import { Description, Dialog, DialogBackdrop, DialogPanel, DialogTitle } from "@headlessui/react"
 import { useCandidate } from "../hooks/CandidateProvider"
+import { useState } from "react"
 
 export function Candidates() {
   const { candidates, incrementViews } = useCandidate()
+  const [isOpen, setIsOpen] = useState(false)
 
   const groupedByRole = candidates.reduce((acc, candidate) => {
     const role = candidate.occupation
@@ -31,6 +34,7 @@ export function Candidates() {
                 className="flex w-[344px] h-[121px] shadow-md rounded-[10px]"
                 onClick={() => {
                   incrementViews(candidate.id, candidate.views || 0)
+                  setIsOpen(true)
                 }}
               >
                 <img className="w-[118px] h-[121px] bg-sky-200 rounded-[10px]" src={candidate.photo} alt={candidate.firstName}></img>
@@ -43,12 +47,53 @@ export function Candidates() {
                     <p className="font-bold text-[24px] text-[#0000FF]/70">{candidate.number}</p>
                     <p className="text-[10px] mt-[-7px] font-light">{candidate.state}/{candidate.uf}</p>
                   </div>
+
+                  <Dialog
+                    open={isOpen}
+                    onClose={() => setIsOpen(false)}
+                    transition
+                    className="fixed inset-0 flex items-center justify-center bg-black/30 p-4 transition duration-300 ease-out data-[closed]:opacity-0"
+                  >
+                    <DialogBackdrop className="fixed inset-0 bg-black/30" />
+                    <div className="fixed inset-0 flex items-center justify-center p-4">
+                      <DialogPanel className="bg-white rounded-[30px] shadow-md p-8 space-y-6 max-w-md w-full">
+                        <div className="flex items-center gap-4">
+                          <img
+                            src={candidate.photo}
+                            alt={candidate.firstName}
+                            className="w-[60px] h-[60px] rounded-full bg-sky-200"
+                          />
+                          <div className="flex flex-col">
+                            <DialogTitle className="font-bold text-[20px]">Carlos Alberto</DialogTitle>
+                            <Description className="text-[14px] text-blue-600">{candidate.number}</Description>
+                          </div>
+                        </div>
+                        <div className="flex flex-col space-y-2">
+                          <p className="text-[16px] font-medium">Detalhes do Candidato:</p>
+                          <ul className="text-[14px] text-gray-700 list-disc pl-5">
+                            <li><strong>Ocupação:</strong> {candidate.occupation}</li>
+                            <li><strong>Número:</strong> {candidate.number}</li>
+                            <li><strong>Estado:</strong> {candidate.state} / {candidate.uf}</li>
+                            <li><strong>Visualizações:</strong> {candidate.views}</li>
+                            <li><strong>Propostas:</strong> {candidate.proposals}</li>
+                          </ul>
+                        </div>
+                        <button
+                          onClick={() => setIsOpen(false)}
+                          className="bg-blue-600 text-white px-4 py-2 rounded-[10px] hover:bg-blue-700 transition"
+                        >
+                          Fechar
+                        </button>
+                      </DialogPanel>
+                    </div>
+                  </Dialog>
+
                 </div>
               </li>
             ))}
           </ul>
         </section>
       ))}
-    </main>
+    </main >
   )
 }
