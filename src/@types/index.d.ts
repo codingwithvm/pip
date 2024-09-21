@@ -42,6 +42,7 @@ declare type Candidate = {
   proposals: string
   photo: string
   addedAt: Date
+  views: 0
 }
 
 declare type FormValues = {
@@ -62,6 +63,7 @@ declare type CandidateContextProps = {
   saveCandidate: (payload: Candidate) => Promise<void>
   deleteCandidate: (id: string) => Promise<void>
   updateCandidate: (id: string, candidate: Candidate) => Promise<void>
+  incrementViews: (id: string | undefined, currentViews: number) => Promise<void>
 }
 
 declare type CandidateProviderProps = {

@@ -14,7 +14,8 @@ const CandidateProvider = ({ children }: CandidateProviderProps) => {
     state: "",
     proposals: "",
     uf: "",
-    addedAt: new Date("")
+    addedAt: new Date(""),
+    views: 0
   })
 
   useEffect(() => {
@@ -56,13 +57,26 @@ const CandidateProvider = ({ children }: CandidateProviderProps) => {
     }
   }
 
+  const incrementViews = async (id: string | undefined, currentViews: number) => {
+    try {
+      await api.patch(`candidates/${id}`, {
+        views: currentViews + 1,
+      })
+
+      loadCandidates()
+    } catch (error) {
+      console.error("Error updating candidate views:", error)
+    }
+  }
+
   const value: CandidateContextProps = {
     candidates,
     lastCandidate,
     loadCandidates,
     saveCandidate,
     deleteCandidate,
-    updateCandidate
+    updateCandidate,
+    incrementViews
   }
 
   return (
